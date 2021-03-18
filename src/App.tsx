@@ -1,8 +1,7 @@
-import React, { useReducer } from 'react';
 import styled from 'styled-components'
-import { FONT_SIZE } from './constants';
-import {Container} from './components';
-import { fetchData } from './utils/api';
+import { FONT_SIZE } from './constants'
+import { Container } from './components'
+import Listing from './components/Listing'
 
 const AppContainer = styled.div`
   background-color: #282c34;
@@ -14,18 +13,19 @@ const AppContainer = styled.div`
   color: white;
 `
 
-const Header = styled.h2`${FONT_SIZE['2xl']}`
+const Header = styled.h2`
+  ${FONT_SIZE['2xl']}
+`
 
-function App() {
-
+const App = () => {
   return (
     <AppContainer>
-      <Header className="App-header">
-        Star wars Movies db
-      </Header>
-      <Container>boo</Container>
+      <Header className="App-header">Star wars Movies db</Header>
+      <Container>
+        <Listing />
+      </Container>
     </AppContainer>
-  );
+  )
 }
 
-export default App;
+export default App
