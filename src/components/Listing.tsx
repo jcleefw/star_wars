@@ -40,7 +40,7 @@ const Listing: FC<Props> = () => {
     }
 
     if (state.loading && !state.data) {
-      fetchData('films').then((data) => {
+      fetchData('films').then((data: fetchResponse) => {
         dispatch({ type: 'FETCH_DATA', payload: data.payload })
       })
     }

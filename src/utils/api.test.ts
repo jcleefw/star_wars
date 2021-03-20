@@ -1,5 +1,6 @@
 import * as Api from './api'
 import { enableFetchMocks } from 'jest-fetch-mock'
+import { fetchResponse } from './api'
 enableFetchMocks()
 
 describe('api', () => {
@@ -27,7 +28,7 @@ describe('api', () => {
     }
 
     fetchMock.mockResponseOnce(JSON.stringify(mockData))
-    Api.fetchData('star-wars').then((res) => {
+    Api.fetchData('star-wars').then((res: fetchResponse) => {
       expect(res).toEqual(expectedResults)
     })
 
@@ -44,7 +45,7 @@ describe('api', () => {
     }
 
     fetchMock.mockResponseOnce(JSON.stringify(mockData))
-    Api.fetchData('star-wars').then((res) => {
+    Api.fetchData('star-wars').then((res: fetchResponse) => {
       expect(res).toEqual(expectedResults)
     })
 
@@ -61,7 +62,7 @@ describe('api', () => {
     }
 
     fetchMock.mockRejectedValue(mockErrors)
-    Api.fetchData('darth-vader').then((res) => {
+    Api.fetchData('darth-vader').then((res: fetchResponse) => {
       expect(res).toEqual(expectedResults)
     })
 
