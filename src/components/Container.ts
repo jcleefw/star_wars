@@ -1,8 +1,9 @@
 import styled from 'styled-components'
+import { COLORS } from '../constants'
 
 const Container = styled.div`
   width: 100%;
-  background: tomato;
+  // padding: 1.5rem;
 
   @media (min-width: 640px) {
     max-width: 640px;

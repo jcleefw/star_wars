@@ -1,5 +1,7 @@
 import React, { FC, useEffect, useReducer } from 'react'
-import { fetchData } from '../utils/api'
+import { fetchData, fetchResponse } from '../utils/api'
+import styled from 'styled-components'
+import { COLORS, FONT_SIZE } from '../constants'
 
 interface Props {}
 
@@ -11,6 +13,25 @@ const initialState: {
   loading: false,
   data: [],
 }
+
+const ListItem = styled.div`
+  margin-bottom: 1rem;
+  background: ${COLORS.shuffleGray};
+  padding: 1.5rem;
+  border-radius: 3px;
+`
+
+const Title = styled.h2`
+  ${FONT_SIZE.lg};
+  color: ${COLORS.gold};
+  margin: 0;
+`
+
+const ReleaseDates = styled.span`
+  ${FONT_SIZE.sm};
+  color: ${COLORS.textGray};
+  font-style: italic;
+`
 
 const reducer = (state: any, action: any) => {
   switch (action.type) {
@@ -24,9 +45,10 @@ const reducer = (state: any, action: any) => {
 const generateList = (data: { [x: string]: any }[]) => {
   return data.map((item: any, index: number) => {
     return (
-      <div key={index}>
-        {item.title} = {item.release_date}
-      </div>
+      <ListItem key={index}>
+        <Title>{item.title}</Title>
+        <ReleaseDates>Movie released on {item.release_date}</ReleaseDates>
+      </ListItem>
     )
   })
 }
