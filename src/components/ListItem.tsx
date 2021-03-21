@@ -44,13 +44,22 @@ const Column = styled.td`
 `
 
 interface Props {
+  index: string | number
   title: string
   releaseDate: Date
   isTotalRow?: boolean
+  handleVoteButtonClick: (index: string | number) => void
+  votes: number[]
 }
 
-const ListItem = ({ title, releaseDate, isTotalRow = false }: Props) => {
-  const [voteCount, setVoteCount] = React.useState(0)
+const ListItem = ({
+  index,
+  title,
+  releaseDate,
+  isTotalRow = false,
+  handleVoteButtonClick,
+  votes,
+}: Props) => {
   return (
     <Item isTotalRow={isTotalRow}>
       <Column>
@@ -58,8 +67,10 @@ const ListItem = ({ title, releaseDate, isTotalRow = false }: Props) => {
         <ReleaseDates>Movie released on {releaseDate}</ReleaseDates>
       </Column>
       <Column>
-        <div>{voteCount}</div>
-        <button onClick={() => setVoteCount(voteCount + 1)}>Vote</button>
+        <div>
+          {votes && votes[index as number] ? votes[index as number] : 0}
+        </div>
+        <button onClick={() => handleVoteButtonClick(index)}>Vote</button>
       </Column>
     </Item>
   )
