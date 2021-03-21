@@ -1,14 +1,9 @@
+import { AnyObject, ResponsePayload } from '../interface'
+
 const BASE_URL = 'https://swapi.dev/api/'
 
 export interface fetchResponse {
-  payload: {
-    loading: boolean
-    data?: {
-      count: number
-      results?: any
-      error?: any[]
-    }
-  }
+  payload: ResponsePayload
 }
 
 export const fetchData = (url: string): Promise<fetchResponse> => {
