@@ -15,6 +15,7 @@ const AppContainer = styled.div`
 
 const Header = styled.h2`
   ${FONT_SIZE['2xl']}
+  margin-top: 3rem;
 `
 
 const App = () => {

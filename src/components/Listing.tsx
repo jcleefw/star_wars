@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useReducer } from 'react'
 import { fetchData, fetchResponse } from '../utils/api'
+import ListItem, { Item } from './ListItem'
 import styled from 'styled-components'
-import { COLORS, FONT_SIZE } from '../constants'
 
 interface Props {}
 
@@ -14,25 +14,6 @@ const initialState: {
   data: [],
 }
 
-const ListItem = styled.div`
-  margin-bottom: 1rem;
-  background: ${COLORS.shuffleGray};
-  padding: 1.5rem;
-  border-radius: 3px;
-`
-
-const Title = styled.h2`
-  ${FONT_SIZE.lg};
-  color: ${COLORS.gold};
-  margin: 0;
-`
-
-const ReleaseDates = styled.span`
-  ${FONT_SIZE.sm};
-  color: ${COLORS.textGray};
-  font-style: italic;
-`
-
 const reducer = (state: any, action: any) => {
   switch (action.type) {
     case 'FETCH_DATA':
@@ -43,15 +24,27 @@ const reducer = (state: any, action: any) => {
 }
 
 const generateList = (data: { [x: string]: any }[]) => {
-  return data.map((item: any, index: number) => {
-    return (
-      <ListItem key={index}>
-        <Title>{item.title}</Title>
-        <ReleaseDates>Movie released on {item.release_date}</ReleaseDates>
-      </ListItem>
-    )
+  const sortedData = data.sort((a, b) => {
+    const aDate = new Date(a.release_date).getTime()
+    const bDate = new Date(b.release_date).getTime()
+    if (aDate < bDate) {
+      return -1
+    }
+    if (aDate > bDate) {
+      return 1
+    }
+
+    return 0
+  })
+
+  return sortedData.map((item: any, index: number) => {
+    return <ListItem key={index} title={item.title} releaseDate={item.release_date} />
   })
 }
+
+const Table = styled.table`
+  width: 100%;
+`
 
 const Listing: FC<Props> = () => {
   const [state, dispatch] = useReducer(reducer, initialState)
@@ -69,11 +62,18 @@ const Listing: FC<Props> = () => {
   }, [state])
 
   return (
-    <div>
+    <>
       {state.errors && <div>{state.data.errors.toString()}</div>}
       {state.loading && <div>Loading...</div>}
-      {state.data?.count && generateList(state.data.results)}
-    </div>
+
+      {state.data?.count && (
+        <Table>
+          <tbody>
+            {generateList(state.data.results)}
+          </tbody>
+        </Table>
+      )}
+    </>
   )
 }
 
