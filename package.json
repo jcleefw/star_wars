@@ -44,6 +44,8 @@
   },
   "devDependencies": {
     "@types/styled-components": "^5.1.9",
-    "jest-fetch-mock": "^3.0.3"
+    "jest-fetch-mock": "^3.0.3",
+    "prettier": "^2.2.1"
+    
   }
 }
