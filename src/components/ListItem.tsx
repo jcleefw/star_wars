@@ -1,9 +1,8 @@
-import React from 'react'
 import styled from 'styled-components'
 import { COLORS, FONT_SIZE } from '../constants'
 
 interface ItemRowProp {
-  isTotalRow: boolean
+  isTotalRow?: boolean
 }
 
 export const Item = styled('tr')<ItemRowProp>`
@@ -39,14 +38,36 @@ const ReleaseDates = styled.span`
   font-style: italic;
 `
 
-const Column = styled.td`
+const Column = styled('td')<{ justify?: string; direction?: string }>`
   color: inherit;
+  display: flex;
+  flex-direction: ${(props) => props.direction || 'column'};
+  align-items: ${(props) => props.justify || 'start'};
+`
+
+const Button = styled('button')`
+  background: ${COLORS.gold};
+  border: none;
+  padding: 3px 8px;
+  text-transform: uppercase;
+  ${FONT_SIZE.xs};
+  font-weight: bold;
+  border-radius: 2px;
+  outline: none;
+`
+
+const VoteCount = styled.div`
+  margin-right: 1rem;
+`
+
+const Icon = styled.i`
+  padding-right: 0.5rem;
 `
 
 interface Props {
   index: string | number
   title: string
-  releaseDate: Date
+  releaseDate: string
   isTotalRow?: boolean
   handleVoteButtonClick: (index: string | number) => void
   votes: number[]
@@ -56,21 +77,22 @@ const ListItem = ({
   index,
   title,
   releaseDate,
-  isTotalRow = false,
   handleVoteButtonClick,
   votes,
 }: Props) => {
   return (
-    <Item isTotalRow={isTotalRow}>
+    <Item>
       <Column>
         <Title>{title}</Title>
         <ReleaseDates>Movie released on {releaseDate}</ReleaseDates>
       </Column>
-      <Column>
-        <div>
+      <Column justify={'center'} direction="row">
+        <VoteCount data-testid="vote-count">
           {votes && votes[index as number] ? votes[index as number] : 0}
-        </div>
-        <button onClick={() => handleVoteButtonClick(index)}>Vote</button>
+        </VoteCount>
+        <Button onClick={() => handleVoteButtonClick(index)}>
+          <Icon className="far fa-thumbs-up"></Icon>Vote
+        </Button>
       </Column>
     </Item>
   )

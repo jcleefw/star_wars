@@ -7,6 +7,6 @@ export interface ResponsePayload {
   data?: {
     count: number
     results?: AnyObject[]
-    error?: any[]
   }
+  errors?: any[]
 }
