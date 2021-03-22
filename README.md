@@ -12,4 +12,9 @@
 - [x] Print the titles in a table ordered by release_date.
 - [x] Place a “Vote” button next to each one with a vote counter.
 - [x] Once a user clicks on a “Vote” button, increment and show the number of votes for that film.
-- [ ] Show the total number of votes for all the films at the bottom of the table.
+- [x] Show the total number of votes for all the films at the bottom of the table.
+- [x] Write component test for Listing & ListItem
+
+### TODO
+
+- [ ] reducer test

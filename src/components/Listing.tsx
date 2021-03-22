@@ -48,7 +48,6 @@ const Listing: FC<Props> = () => {
 
     if (state.loading && (!state.data || !state.errors)) {
       fetchData('films').then((response: fetchResponse) => {
-        //TODO: check what happends when payload count = 0
         let votes = new Array(response.payload.data?.count).fill(0)
         dispatch({
           type: 'UPDATE_DATA',
