@@ -1,4 +1,4 @@
-import { AnyObject, ResponsePayload } from '../interface'
+import { ResponsePayload } from '../interface'
 
 const BASE_URL = 'https://swapi.dev/api/'
 
