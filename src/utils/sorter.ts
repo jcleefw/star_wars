@@ -1,11 +1,11 @@
-import { AnyObject } from '../interface'
+import { AnyObject, filmsResults } from '../interface'
 export enum OrderEnum {
   ASC = 'asc',
   DESC = 'desc',
 }
 
 export const sortDataByDates = (
-  data: AnyObject[],
+  data: filmsResults[] | AnyObject[],
   propertyKey: string,
   order: OrderEnum = OrderEnum.ASC,
 ) => {

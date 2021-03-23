@@ -5,28 +5,24 @@ import {
   sortDataByDates,
   reducer,
   OrderEnum,
+  Actions,
 } from '../utils'
 import ListItem, { Item } from './ListItem'
 import styled from 'styled-components'
-import { AnyObject } from '../interface'
-
-interface filmsResults extends AnyObject {
-  title: string
-  release_date: string
-}
+import { filmsResults } from '../interface'
 
 export interface State {
   loading: boolean
-  data: { count: number | null; results: filmsResults[] } | null
+  data?: { count: number; results: filmsResults[] } | null
   votes: number[] | null
-  errors: any[] | null
+  errors?: any[] | null
 }
 interface Props {}
 
 const initialState: State = {
   loading: false,
   data: null,
-  votes: null,
+  votes: [],
   errors: null,
 }
 
@@ -43,15 +39,23 @@ const Listing: FC<Props> = () => {
 
   useEffect(() => {
     if (!state.loading && !state.data && !state.errors) {
-      dispatch({ type: 'UPDATE_DATA', payload: { loading: true } })
+      dispatch({
+        type: Actions.UPDATE_DATA,
+        payload: { ...state, loading: true },
+      })
     }
 
     if (state.loading && (!state.data || !state.errors)) {
       fetchData('films').then((response: fetchResponse) => {
-        let votes = new Array(response.payload.data?.count).fill(0)
+        let votes = response.payload.data
+          ? new Array(response.payload.data?.count).fill(0)
+          : null
         dispatch({
-          type: 'UPDATE_DATA',
-          payload: { ...response.payload, votes: votes },
+          type: Actions.UPDATE_DATA,
+          payload: {
+            ...response.payload,
+            votes: votes,
+          },
         })
       })
     }
@@ -59,11 +63,11 @@ const Listing: FC<Props> = () => {
 
   const handleVoteButtonClick = (index: number | string) => {
     if (Number(index) || index === 0) {
-      let updatedVotes = [...state.votes]
+      let updatedVotes = [...(state.votes as number[])]
       updatedVotes[index as number] += 1
 
       dispatch({
-        type: 'UPDATE_DATA',
+        type: Actions.UPDATE_DATA,
         payload: { ...state, votes: updatedVotes },
       })
     }
@@ -71,13 +75,13 @@ const Listing: FC<Props> = () => {
 
   const generateList = (data: filmsResults[], votes: number[]) => {
     return sortDataByDates(data, 'release_date', OrderEnum.ASC).map(
-      (item: any, index: number) => {
+      (item: Partial<filmsResults>, index: number) => {
         return (
           <ListItem
             key={index}
             index={index}
-            title={item.title}
-            releaseDate={item.release_date}
+            title={item.title as string}
+            releaseDate={item.release_date as string}
             handleVoteButtonClick={handleVoteButtonClick}
             votes={votes}
           />
@@ -98,10 +102,10 @@ const Listing: FC<Props> = () => {
       {state.data?.count && state.data?.count !== 0 && (
         <Table>
           <tbody>
-            {generateList(state.data.results, state.votes)}
+            {generateList(state.data.results, state.votes as number[])}
             <Item key={'total'} isTotalRow={true}>
               <td>Total votes:</td>
-              <td>{state.votes.reduce(sum, 0)}</td>
+              <td>{state.votes?.reduce(sum, 0)}</td>
             </Item>
           </tbody>
         </Table>
