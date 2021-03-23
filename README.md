@@ -1,7 +1,7 @@
 ## How to run app
 
 1. Install all needed packages
-   `yarn add` or `npm install`
+   `yarn install` or `npm install`
 
 1. Run client app
    `yarn start` or `npm start`
@@ -18,3 +18,4 @@
 ### TODO
 
 - [ ] reducer test
+- [ ] adding storage system to store votes (eg. localStorage / db)
