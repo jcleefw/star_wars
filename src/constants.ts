@@ -4,6 +4,13 @@ export const FONT_SIZE: { [key: string]: string } = {
   xs: `font-size: 0.75rem; line-height: 1rem;`,
   lg: `font-size: 1.125rem; line-height: 1.75rem;`,
   xl: `font-size: 1.25rem; line-height: 1.75rem;`,
-  "3xl": `font-size: 1.875rem; line-height: 2.25rem;`,
-  "2xl": `font-size: 1.5rem; line-height: 2rem;`,
-};
+  '3xl': `font-size: 1.875rem; line-height: 2.25rem;`,
+  '2xl': `font-size: 1.5rem; line-height: 2rem;`,
+}
+
+export const COLORS: { [key: string]: string } = {
+  charcoalBlack: '#282c34',
+  shuffleGray: '#41444c',
+  textGray: '#bdbdbd',
+  gold: '#E2B655',
+}
