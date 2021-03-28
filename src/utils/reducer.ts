@@ -11,7 +11,7 @@ export const reducer = (
 ) => {
   switch (action.type) {
     case Actions.UPDATE_DATA:
-      return (state = action.payload)
+      return Object.assign({}, state, action.payload)
     default:
       return state
   }
