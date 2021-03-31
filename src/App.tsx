@@ -1,4 +1,3 @@
-import React, { createContext } from 'react'
 import styled from 'styled-components'
 import { COLORS, FONT_SIZE } from './constants'
 import { Container } from './components'

@@ -14,8 +14,10 @@
 - [x] Once a user clicks on a “Vote” button, increment and show the number of votes for that film.
 - [x] Show the total number of votes for all the films at the bottom of the table.
 - [x] Write component test for Listing & ListItem
+- [x] Sse reducer to manage global state
 
 ### TODO
 
 - [ ] reducer test
 - [ ] adding storage system to store votes (eg. localStorage / db)
+- [ ] setup routing system for other pages
