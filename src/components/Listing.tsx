@@ -1,30 +1,17 @@
-import { FC, useEffect, useReducer } from 'react'
+import { FC, useEffect, useContext } from 'react'
 import {
   fetchData,
   fetchResponse,
   sortDataByDates,
-  reducer,
   OrderEnum,
   Actions,
 } from '../utils'
 import ListItem, { Item } from './ListItem'
 import styled from 'styled-components'
 import { filmsResults } from '../interface'
+import { Context } from './Provider'
 
-export interface State {
-  loading: boolean
-  data?: { count: number; results: filmsResults[] } | null
-  votes: number[] | null
-  errors?: any[] | null
-}
 interface Props {}
-
-const initialState: State = {
-  loading: false,
-  data: null,
-  votes: [],
-  errors: null,
-}
 
 const sum = (total: number, number: number) => {
   return total + number
@@ -35,13 +22,14 @@ const Table = styled.table`
 `
 
 const Listing: FC<Props> = () => {
-  const [state, dispatch] = useReducer(reducer, initialState)
+  const { state: storeState, dispatch } = useContext(Context)
+  const state = storeState.listing
 
   useEffect(() => {
     if (!state.loading && !state.data && !state.errors) {
       dispatch({
         type: Actions.UPDATE_DATA,
-        payload: { ...state, loading: true },
+        payload: { ...storeState, listing: { ...state, loading: true } },
       })
     }
 
@@ -53,13 +41,13 @@ const Listing: FC<Props> = () => {
         dispatch({
           type: Actions.UPDATE_DATA,
           payload: {
-            ...response.payload,
-            votes: votes,
+            ...storeState,
+            listing: { ...response.payload, votes: votes },
           },
         })
       })
     }
-  }, [state])
+  }, [state, dispatch, storeState])
 
   const handleVoteButtonClick = (index: number | string) => {
     if (Number(index) || index === 0) {
@@ -68,7 +56,7 @@ const Listing: FC<Props> = () => {
 
       dispatch({
         type: Actions.UPDATE_DATA,
-        payload: { ...state, votes: updatedVotes },
+        payload: { ...storeState, listing: { ...state, votes: updatedVotes } },
       })
     }
   }

@@ -1,13 +1,12 @@
-import { State } from '../components/Listing'
+import { StoreState } from '../interface'
 
 export enum Actions {
   UPDATE_DATA = 'UPDATE_DATA',
 }
 
-// TODO: write test
-export const reducer = (
-  state: State,
-  action: { type: Actions; payload: State },
+export const Reducer = (
+  state: StoreState,
+  action: { type: Actions; payload: Partial<StoreState> },
 ) => {
   switch (action.type) {
     case Actions.UPDATE_DATA:
