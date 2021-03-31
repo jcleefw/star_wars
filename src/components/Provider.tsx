@@ -3,11 +3,10 @@ import { StoreState } from '../interface'
 import { Actions, Reducer } from '../utils'
 
 const initialState: StoreState = {
-  votesReceived: 50,
+  votesReceived: null,
   listing: {
     loading: false,
     data: null,
-    votes: [],
     errors: null,
   },
 }
@@ -27,6 +26,7 @@ interface Props {
 }
 const Provider: FC<Props> = ({ children }) => {
   const [state, dispatch] = useReducer(Reducer, initialState)
+
   return (
     <Context.Provider value={{ state, dispatch }}>{children}</Context.Provider>
   )

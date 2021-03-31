@@ -19,11 +19,10 @@ export interface ResponsePayload {
 type ListingState = {
   loading: boolean
   data?: { count: number; results: filmsResults[] } | null
-  votes: number[] | null
   errors?: any[] | null
 }
 
 export interface StoreState {
-  votesReceived: number
+  votesReceived: number[] | null
   listing: ListingState
 }
