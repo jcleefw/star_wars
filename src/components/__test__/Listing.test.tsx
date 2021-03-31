@@ -2,6 +2,7 @@ import { render, waitFor, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import * as utils from '../../utils/api'
 import Listing from '../Listing'
+import Provider from '../Provider'
 
 describe('Listing', () => {
   beforeEach(() => {
@@ -24,7 +25,11 @@ describe('Listing', () => {
         },
       })
 
-      render(<Listing />)
+      render(
+        <Provider>
+          <Listing />
+        </Provider>,
+      )
 
       await waitFor(() => screen.getByRole('table'))
       const tableRows = await screen.getAllByRole('row')
@@ -52,7 +57,11 @@ describe('Listing', () => {
         },
       })
 
-      render(<Listing />)
+      render(
+        <Provider>
+          <Listing />
+        </Provider>,
+      )
       await waitFor(() => screen.getByTestId('no-result'))
       expect(screen.getByTestId('no-result')).toHaveTextContent('No results...')
     })
@@ -66,14 +75,22 @@ describe('Listing', () => {
           errors: ['this is an error'],
         },
       })
-      render(<Listing />)
+      render(
+        <Provider>
+          <Listing />
+        </Provider>,
+      )
       await waitFor(() => screen.getByTestId('errors'))
       expect(screen.getByTestId('errors')).toHaveTextContent('this is an error')
     })
   })
 
   it('When component is fetching data', () => {
-    render(<Listing />)
+    render(
+      <Provider>
+        <Listing />
+      </Provider>,
+    )
     expect(screen.getByTestId('loading')).toHaveTextContent('Loading')
   })
 })
