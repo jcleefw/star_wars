@@ -61,8 +61,8 @@ const Listing: FC<Props> = () => {
     }
   }, [state])
 
-  const handleVoteButtonClick = (index: number | string) => {
-    if (Number(index) || index === 0) {
+  const handleVoteButtonClick = (index: number) => {
+    if (index === 0) {
       let updatedVotes = [...(state.votes as number[])]
       updatedVotes[index as number] += 1
 
@@ -80,8 +80,8 @@ const Listing: FC<Props> = () => {
           <ListItem
             key={index}
             index={index}
-            title={item.title as string}
-            releaseDate={item.release_date as string}
+            title={item.title ?? ''}
+            releaseDate={item.release_date ?? ''}
             handleVoteButtonClick={handleVoteButtonClick}
             votes={votes}
           />

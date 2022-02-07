@@ -65,11 +65,11 @@ const Icon = styled.i`
 `
 
 interface Props {
-  index: string | number
+  index: number
   title: string
   releaseDate: string
   isTotalRow?: boolean
-  handleVoteButtonClick: (index: string | number) => void
+  handleVoteButtonClick: (index: number) => void
   votes: number[]
 }
 
@@ -88,7 +88,7 @@ const ListItem = ({
       </Column>
       <Column justify={'center'} direction="row">
         <VoteCount data-testid="vote-count">
-          {votes && votes[index as number] ? votes[index as number] : 0}
+          {votes && votes[index] ? votes[index] : 0}
         </VoteCount>
         <Button onClick={() => handleVoteButtonClick(index)}>
           <Icon className="far fa-thumbs-up"></Icon>Vote
